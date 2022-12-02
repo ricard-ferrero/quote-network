@@ -7,6 +7,15 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div>
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 </body>

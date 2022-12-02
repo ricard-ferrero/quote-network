@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+#from django.http import HttpResponse
 
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
-# Create your views here.
-def hello_world(request):
-    return HttpResponse('<h1>Hello World!</h1>')
+
+def index(request):
+    return render(request, 'network/index.html')
 
 
 def register(request):
@@ -13,7 +14,8 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
-            message.success(request, f'User {username} created')
+            messages.success(request, f'User {username} created')
+            return redirect('network:index')
     else:
         form = UserCreationForm()
     return render(request, 'network/register.html', {'form': form})
