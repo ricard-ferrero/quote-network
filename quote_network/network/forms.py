@@ -7,6 +7,8 @@ class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    quote = forms.CharField(label='Quote')
+    author = forms.CharField(label='Author of the quote')
 
     class Meta:
         model = User

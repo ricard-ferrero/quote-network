@@ -7,6 +7,16 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    
+    <nav>
+        <ul>
+            <li><a href="{% url 'network:index' %}">Home</a></li>
+            <li><a href="{% url 'network:profile' %}">Profile</a></li>
+            <li><a href="{% url 'network:register' %}">Register</a></li>
+            <li><a href="{% url 'network:login' %}">Login</a></li>
+            <li><a href="{% url 'network:logout' %}">Logout</a></li>
+        </ul>
+    </nav>
 
     {% if messages %}
         {% for message in messages %}
