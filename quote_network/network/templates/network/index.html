@@ -1,7 +1,14 @@
 {% extends 'network/base.html' %}
 
-{% block title %}Index{% endblock %}
+{% block title %}Quotes{% endblock %}
 
 {% block content %}
-<h1>Hello World!</h1>
+<h1>Welcome to Quotes</h1>
+
+<ul>
+{% for user in users_list %}
+    <li><a href="{% url 'network:profile' user.username %}">{{ user.username }}</a></li>
+{% endfor%}
+</ul>
+
 {% endblock %}

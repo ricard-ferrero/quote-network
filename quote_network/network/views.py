@@ -8,7 +8,8 @@ from .models import Profile
 from django.contrib.auth.models import User
 
 def index(request):
-    return render(request, 'network/index.html')
+    users_list = User.objects.all()
+    return render(request, 'network/index.html', {'users_list': users_list})
 
 
 def register(request):
@@ -29,5 +30,10 @@ def register(request):
     return render(request, 'network/register.html', {'form': form})
 
 
-def profile(request):
-    return render(request, 'network/profile.html')
+def profile(request, user_name=None):
+    current_user = request.user
+    if user_name and user_name != current_user.username:
+        profile = User.objects.get(username=user_name)
+    else:
+        profile = current_user
+    return render(request, 'network/profile.html', {'profile': profile})
