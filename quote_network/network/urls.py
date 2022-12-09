@@ -11,4 +11,6 @@ urlpatterns = [
     path('profile/<str:user_name>/', views.profile, name='profile'),
     path('login/', LoginView.as_view(template_name='network/login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='network/logout.html'), name='logout'),
+    path('follow/<str:username>/', views.follow, name='follow'),
+    path('unfollow/<str:username>/', views.unfollow, name='unfollow'),
 ]

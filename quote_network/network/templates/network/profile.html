@@ -4,4 +4,15 @@
 
 {% block content %}
 <h1>{{ profile.username }}</h1>
+
+{% if request.user.is_authenticated %}
+    {% if profile.username != request.user.username %}
+        {% if profile not in request.user.profile.following %}
+        <button><a href="{% url 'network:follow' profile %}">Follow</a></button>
+        {% else %}
+        <button><a href="{% url 'network:unfollow' profile %}">Unfollow</a></button>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
 {% endblock %}
