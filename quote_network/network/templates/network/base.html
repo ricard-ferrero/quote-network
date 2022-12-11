@@ -10,11 +10,14 @@
     
     <nav>
         <ul>
+            {% if user.is_authenticated %}
             <li><a href="{% url 'network:index' %}">Home</a></li>
-            <li><a href="{% url 'network:profile' %}">Profile</a></li>
+            <li><a href="{% url 'network:profile' user.username %}">Profile</a></li>
+            <li><a href="{% url 'network:logout' %}">Logout</a></li>
+            {% else %}
             <li><a href="{% url 'network:register' %}">Register</a></li>
             <li><a href="{% url 'network:login' %}">Login</a></li>
-            <li><a href="{% url 'network:logout' %}">Logout</a></li>
+            {% endif %}
         </ul>
     </nav>
 
@@ -26,7 +29,9 @@
         {% endfor %}
     {% endif %}
 
-    <i>{{ user.username}}</i>
+    <div>
+        <i>{{ user.username }}</i>
+    </div>
 
     {% block content %}
     {% endblock %}

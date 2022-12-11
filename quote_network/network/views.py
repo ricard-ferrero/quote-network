@@ -30,13 +30,13 @@ def register(request):
     return render(request, 'network/register.html', {'form': form})
 
 
-def profile(request, user_name=None):
+def profile(request, profile=None):
     current_user = request.user
-    if user_name and user_name != current_user.username:
-        profile = User.objects.get(username=user_name)
+    if profile and profile != current_user.username:
+        user = User.objects.get(username=profile)
     else:
-        profile = current_user
-    return render(request, 'network/profile.html', {'profile': profile})
+        user = current_user
+    return render(request, 'network/profile.html', {'profile': user.profile})
 
 
 def follow(request, username):
@@ -46,7 +46,7 @@ def follow(request, username):
     rel = Relationship(from_user=current_user, to_user=to_user_id)
     rel.save()
     messages.success(request, f'Following {username}')
-    return redirect('network:index')
+    return redirect('network:profile', username)
 
 
 def unfollow(request, username):
@@ -55,5 +55,5 @@ def unfollow(request, username):
     to_user_id = to_user.id
     rel = Relationship.objects.filter(from_user=current_user.id, to_user=to_user_id).get()
     rel.delete()
-    messages.success(request, f'Unfollow {username}')
-    return redirect('network:index')
+    messages.success(request, f'Unfollowing {username}')
+    return redirect('network:profile', username)

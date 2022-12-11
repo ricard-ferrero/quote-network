@@ -1,23 +1,28 @@
 {% extends 'network/base.html' %}
 
-{% block title %}{{ profile.username }}{% endblock %}
+{% block title %}{{ profile.user.username }}{% endblock %}
 
 {% block content %}
-<h1>{{ profile.username }}</h1>
+<h1>{{ profile.user.username }}</h1>
 <div>
-    {% if request.user.is_authenticated %}
-        {% if profile.username != request.user.username %}
-            {% if profile not in request.user.profile.following %}
-            <button><a href="{% url 'network:follow' profile %}">Follow</a></button>
-            {% else %}
-            <button><a href="{% url 'network:unfollow' profile %}">Unfollow</a></button>
-            {% endif %}
+    {% if profile.user.username != request.user.username %}
+        {% if profile.user not in request.user.profile.following %}
+        <button><a href="{% url 'network:follow' profile.user.username %}">Follow</a></button>
+        {% else %}
+        <button><a href="{% url 'network:unfollow' profile.user.username %}">Unfollow</a></button>
         {% endif %}
     {% endif %}
 </div>
 
 <div>
-    <p><strong>Followers: </strong>{{ profile.profile.followers.count }}</p>
-    <p><strong>Following: </strong>{{ profile.profile.following.count }}</p>
+    <p><strong>Followers: </strong>{{ profile.followers.count }}</p>
+    <p><strong>Following: </strong>{{ profile.following.count }}</p>
+</div>
+
+<div>
+    <figure>
+        <blockquote>{{ profile.quote }}</blockquote>
+        <figcaption>&mdash; {{ profile.author_quote }}</figcaption>
+    </figure>
 </div>
 {% endblock %}
